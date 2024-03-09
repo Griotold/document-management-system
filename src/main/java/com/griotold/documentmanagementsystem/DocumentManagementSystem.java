@@ -1,11 +1,20 @@
 package com.griotold.documentmanagementsystem;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * 초기 스냅샷 - 여기서부터 단계적으로 리팩토링
+ * ImageImporter 등록
  * */
 public class DocumentManagementSystem {
+    private final Map<String, Importer> extensionToImporter = new HashMap<>();
+
+    public DocumentManagementSystem() {
+        extensionToImporter.put("jpa", new ImageImporter());
+        // todo LetterImporter, ReportImporter 설계하고 등록해줘야 함.
+    }
+
     void importFile(String path) {
         // 확장자 추출
         String extension = extractExtension(path);
