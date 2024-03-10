@@ -1,8 +1,11 @@
 package com.griotold.documentmanagementsystem;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.File;
 
 /**
  * ImageImporter 등록
@@ -12,31 +15,16 @@ public class DocumentManagementSystem {
 
     public DocumentManagementSystem() {
         extensionToImporter.put("letter", new LetterImporter());
-        // todo ReportImporter 도 등록해줘야 함
-        //        extensionToImporter.put("report", new ReportImporter());
+        extensionToImporter.put("report", new ReportImporter());
         extensionToImporter.put("jpg", new ImageImporter());
         extensionToImporter.put("invoice", new InvoiceImporter());
     }
-
-    void importFile(String path) {
+    // todo 맞는 답안인지 확인 필요
+    void importFile(String path) throws IOException {
         // 확장자 추출
         String extension = extractExtension(path);
-        switch(extension) {
-            case "letter":
-                // 우편물 임포트 코드
-                break;
-
-            case "report":
-                // 레포트 임포트 코드
-                break;
-
-            case "jpg":
-                // 이미지 임포트 코드
-                break;
-
-            default:
-                throw new UnknownFileTypeException("For file: " + path);
-        }
+        Importer importer = extensionToImporter.get(extension);
+        importer.importFile(new File(path));
     }
 
     private String extractExtension(String path) {
