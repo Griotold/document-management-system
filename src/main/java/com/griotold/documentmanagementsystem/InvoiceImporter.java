@@ -17,6 +17,7 @@ public class InvoiceImporter implements Importer {
         textFile.addLineSuffix(AMOUNT_PREFIX, Attributes.AMOUNT);
 
         final Map<String, String> attributes = textFile.getAttributes();
+        attributes.put(Attributes.TYPE, "INVOICE");
         return new Document(attributes);
     }
 }
