@@ -11,8 +11,11 @@ public class DocumentManagementSystem {
     private final Map<String, Importer> extensionToImporter = new HashMap<>();
 
     public DocumentManagementSystem() {
-        extensionToImporter.put("jpa", new ImageImporter());
-        // todo LetterImporter, ReportImporter 설계하고 등록해줘야 함.
+        extensionToImporter.put("letter", new LetterImporter());
+        // todo ReportImporter 도 등록해줘야 함
+        //        extensionToImporter.put("report", new ReportImporter());
+        extensionToImporter.put("jpg", new ImageImporter());
+        extensionToImporter.put("invoice", new InvoiceImporter());
     }
 
     void importFile(String path) {
